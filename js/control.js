@@ -1,7 +1,5 @@
 const PATH_NAME = window.location.pathname;
 
-// getJs('../static/assets/vendor.js');
-
 function getJs(url) {
     var script = document.createElement("script");
     script.src = url;

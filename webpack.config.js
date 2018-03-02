@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const glob = require('glob');
+const uglify = require('uglifyjs-webpack-plugin');
 
 function getEntry(globPath) {
     var entries = {},
@@ -19,15 +20,12 @@ function getEntry(globPath) {
 let entries = getEntry('./js/pages/*.js'); // 获得入口js文件
 entries['vendor'] = ['jquery', 'vue', './js/common.js'];
 
-console.log(entries);
-
 module.exports = {
   entry : entries,
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'static/assets'),
     chunkFilename: '[name].js',
-    // publicPath: '//192.168.1.31:3000/assets/js/'
   },
   module: {
     rules: [
@@ -73,7 +71,8 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: 2
-    })
+    }),
+     new uglify()
   ],
   resolve: {
     alias: {
